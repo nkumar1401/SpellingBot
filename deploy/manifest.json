@@ -1,0 +1,9 @@
+﻿{
+  "name": "Junior Spelling Bee Champion",
+  "short_name": "SpellBee",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FBF9F1",
+  "theme_color": "#FF9F1C",
+  "orientation": "portrait"
+}

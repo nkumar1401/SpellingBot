@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Junior Spelling Bee Champion</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&family=Nunito+Sans:wght@600;700&display=swap">
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0f172a;
+      overflow-x: hidden;
+    }
+    .font-headline {
+      font-family: 'Quicksand', sans-serif;
+    }
+    /* Chunky Tactile Buttons */
+    .btn-tactile-primary {
+      background-color: #FF9F1C;
+      box-shadow: 0 5px 0 0 #D97706;
+      transition: all 0.08s ease;
+    }
+    .btn-tactile-primary:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 0 #D97706;
+    }
+    .btn-tactile-secondary {
+      background-color: #3A86FF;
+      box-shadow: 0 5px 0 0 #1D4ED8;
+      transition: all 0.08s ease;
+    }
+    .btn-tactile-secondary:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 0 #1D4ED8;
+    }
+    .btn-tactile-mint {
+      background-color: #06D6A0;
+      box-shadow: 0 5px 0 0 #059669;
+      transition: all 0.08s ease;
+    }
+    .btn-tactile-mint:active {
+      transform: translateY(4px);
+      box-shadow: 0 1px 0 0 #059669;
+    }
+    .btn-letter {
+      background-color: #FFFFFF;
+      box-shadow: 0 4px 0 0 #DAC2AE;
+      transition: all 0.08s ease;
+    }
+    .btn-letter:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 0 #DAC2AE;
+    }
+    .android-frame {
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 0 12px #26282B, 0 0 0 14px #42464D;
+      border-radius: 46px;
+    }
+    @media (max-width: 640px) {
+      body {
+        background-color: #FBF9F1 !important;
+        padding: 0 !important;
+      }
+      .android-frame {
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      .desktop-only {
+        display: none !important;
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-2 sm:p-4 text-slate-100 select-none">
+
+  <!-- Desktop Header -->
+  <div class="desktop-only w-full max-w-md flex items-center justify-between mb-3 px-2">
+    <div class="flex items-center gap-2">
+      <div class="w-3 h-3 rounded-full bg-emerald-400 animate-pulse"></div>
+      <span class="text-xs font-semibold tracking-wide text-emerald-400">Android Emulator • Pixel 8</span>
+    </div>
+    <div class="flex items-center gap-2 text-xs text-slate-400 bg-slate-800/80 px-2.5 py-1 rounded-full border border-slate-700">
+      <span class="text-amber-400 font-bold">Class 1–3 Spelling Bee</span>
+    </div>
+  </div>
+
+  <!-- Android Phone Frame -->
+  <div class="relative w-full sm:w-[420px] h-[890px] bg-[#26282B] android-frame overflow-hidden flex flex-col">
+
+    <!-- Punch-hole Camera -->
+    <div class="desktop-only absolute top-3 left-1/2 -translate-x-1/2 z-50 flex items-center justify-center">
+      <div class="w-4 h-4 rounded-full bg-black border border-neutral-700 flex items-center justify-center shadow-inner">
+        <div class="w-1.5 h-1.5 rounded-full bg-[#0a192f]"></div>
+      </div>
+    </div>
+
+    <!-- Android Status Bar -->
+    <div class="w-full h-8 pt-1 px-5 flex items-center justify-between text-[11px] font-semibold text-neutral-800 bg-[#FBF9F1] z-40 border-b border-[#DAC2AE]/20">
+      <span id="android-clock">09:41</span>
+      <div class="flex items-center gap-1.5 text-neutral-700">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3C7.5 3 3.7 4.9 1 8l11 13 11-13c-2.7-3.1-6.5-5-11-5z"/></svg>
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M2 22h20V2L2 22z"/></svg>
+        <div class="w-4 h-2 border border-neutral-700 rounded-2xs p-0.5 flex items-center">
+          <div class="w-full h-full bg-neutral-800"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- App Container -->
+    <div id="screen-container" class="flex-1 bg-[#FBF9F1] text-[#1B1C17] overflow-y-auto flex flex-col relative pb-16">
+
+      <!-- ================= SCREEN 1: HOME & LEVEL SELECTOR ================= -->
+      <div id="screen-home" class="screen-view flex-1 flex flex-col p-4 space-y-3.5">
+        <!-- Top App Bar -->
+        <div class="flex items-center justify-between bg-white px-3.5 py-2.5 rounded-2xl shadow-[0_3px_0_0_#DAC2AE] border border-[#DAC2AE]/40">
+          <div class="flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-full bg-[#FF9F1C] flex items-center justify-center text-xl shadow-[0_2px_0_0_#D97706]">
+              🐝
+            </div>
+            <div>
+              <div class="font-headline font-bold text-sm text-[#895100]">SpellBee Champ</div>
+              <div class="text-[10px] font-bold text-[#544434]">CBSE Primary • Classes 1–3</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <div class="flex items-center gap-1 bg-[#FBF9F1] px-2.5 py-1 rounded-full border border-[#DAC2AE]">
+              <span class="text-xs">⭐</span>
+              <span id="home-stars" class="font-headline font-bold text-xs text-[#895100]">350</span>
+            </div>
+            <div class="flex items-center gap-1 bg-[#FBF9F1] px-2 py-1 rounded-full border border-[#DAC2AE]">
+              <span class="text-xs">🔥</span>
+              <span class="font-headline font-bold text-xs text-rose-500">5d</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Card -->
+        <div class="bg-gradient-to-r from-[#FFDCBC] to-[#FFF3E3] rounded-3xl p-4 shadow-[0_5px_0_0_#DAC2AE] border border-[#DAC2AE]/60 relative overflow-hidden">
+          <div class="inline-flex items-center gap-1.5 bg-white/90 px-2.5 py-0.5 rounded-full shadow-sm mb-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#06D6A0] animate-pulse"></span>
+            <span class="font-headline font-bold text-[10px] text-[#895100]">Choose Your Challenge Level</span>
+          </div>
+          <h1 class="font-headline font-bold text-lg text-[#1B1C17] leading-snug">
+            Welcome, Young Speller! 👋
+          </h1>
+          <p class="text-xs font-semibold text-[#544434] mt-0.5 mb-2.5">
+            Learn daily vocabulary from 3-letter starter words up to 7-letter bee champions!
+          </p>
+        </div>
+
+        <!-- 5 PROGRESSIVE DIFFICULTY TIERS -->
+        <div class="space-y-2.5">
+          <div class="flex items-center justify-between px-1">
+            <span class="font-headline font-bold text-xs text-[#895100] uppercase tracking-wide">Select Spelling Level</span>
+            <span class="text-[10px] font-bold text-neutral-400">Class 1 to 3</span>
+          </div>
+
+          <!-- LEVEL 1: 3-LETTER WORDS -->
+          <div onclick="startLevel(1)" class="bg-white p-3.5 rounded-2xl shadow-[0_3px_0_0_#DAC2AE] border-2 border-emerald-300 hover:border-emerald-500 flex items-center justify-between cursor-pointer active:scale-95 transition">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-emerald-100 flex items-center justify-center text-2xl font-bold text-emerald-700">
+                🌱
+              </div>
+              <div>
+                <div class="font-headline font-bold text-xs text-[#1B1C17]">Level 1: 3-Letter Words</div>
+                <div class="text-[10px] text-emerald-700 font-semibold">BEE • SUN • CAT (Early Spellers)</div>
+              </div>
+            </div>
+            <div class="bg-emerald-50 text-emerald-800 text-xs font-bold px-2.5 py-1 rounded-xl">Play ➔</div>
+          </div>
+
+          <!-- LEVEL 2: 4-LETTER WORDS -->
+          <div onclick="startLevel(2)" class="bg-white p-3.5 rounded-2xl shadow-[0_3px_0_0_#DAC2AE] border-2 border-amber-300 hover:border-amber-500 flex items-center justify-between cursor-pointer active:scale-95 transition">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-amber-100 flex items-center justify-center text-2xl font-bold text-amber-700">
+                👣
+              </div>
+              <div>
+                <div class="font-headline font-bold text-xs text-[#1B1C17]">Level 2: 4-Letter Daily Words</div>
+                <div class="text-[10px] text-amber-700 font-semibold">FEET • KNEE • STAR • FROG</div>
+              </div>
+            </div>
+            <div class="bg-amber-50 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-xl">Play ➔</div>
+          </div>
+
+          <!-- LEVEL 3: 5-LETTER WORDS -->
+          <div onclick="startLevel(3)" class="bg-white p-3.5 rounded-2xl shadow-[0_3px_0_0_#DAC2AE] border-2 border-orange-300 hover:border-orange-500 flex items-center justify-between cursor-pointer active:scale-95 transition">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-orange-100 flex items-center justify-center text-2xl font-bold text-orange-700">
+                🧠
+              </div>
+              <div>
+                <div class="font-headline font-bold text-xs text-[#1B1C17]">Level 3: 5-Letter Smart Words</div>
+                <div class="text-[10px] text-orange-700 font-semibold">BRAIN • SMILE • HONEY • QUEEN</div>
+              </div>
+            </div>
+            <div class="bg-orange-50 text-orange-800 text-xs font-bold px-2.5 py-1 rounded-xl">Play ➔</div>
+          </div>
+
+          <!-- LEVEL 4: 6-LETTER WORDS -->
+          <div onclick="startLevel(4)" class="bg-white p-3.5 rounded-2xl shadow-[0_3px_0_0_#DAC2AE] border-2 border-blue-300 hover:border-blue-500 flex items-center justify-between cursor-pointer active:scale-95 transition">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-blue-100 flex items-center justify-center text-2xl font-bold text-blue-700">
+                👨‍👩‍👧
+              </div>
+              <div>
+                <div class="font-headline font-bold text-xs text-[#1B1C17]">Level 4: 6-Letter Words</div>
+                <div class="text-[10px] text-blue-700 font-semibold">FAMILY • FLOWER • GARDEN • PENCIL</div>
+              </div>
+            </div>
+            <div class="bg-blue-50 text-blue-800 text-xs font-bold px-2.5 py-1 rounded-xl">Play ➔</div>
+          </div>
+
+          <!-- LEVEL 5: 7+ LETTER CHAMPIONS -->
+          <div onclick="startLevel(5)" class="bg-white p-3.5 rounded-2xl shadow-[0_3px_0_0_#DAC2AE] border-2 border-purple-300 hover:border-purple-500 flex items-center justify-between cursor-pointer active:scale-95 transition">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-purple-100 flex items-center justify-center text-2xl font-bold text-purple-700">
+                ✨
+              </div>
+              <div>
+                <div class="font-headline font-bold text-xs text-[#1B1C17]">Level 5: 7+ Letter Bee Champions</div>
+                <div class="text-[10px] text-purple-700 font-semibold">TWINKLE • BUTTERFLY • CHAMPION</div>
+              </div>
+            </div>
+            <div class="bg-purple-50 text-purple-800 text-xs font-bold px-2.5 py-1 rounded-xl">Play ➔</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= SCREEN 2: PICTURE + QUESTION + GUESS + SPELL ================= -->
+      <div id="screen-arena" class="screen-view flex-1 flex flex-col p-3.5 space-y-3 hidden">
+        <!-- Top Nav & Level Indicator -->
+        <div class="flex items-center justify-between">
+          <button onclick="navigateTo('home')" class="w-8 h-8 rounded-full bg-white shadow-[0_2px_0_0_#DAC2AE] flex items-center justify-center font-bold text-sm">
+            ←
+          </button>
+          <div class="flex items-center gap-2">
+            <div id="level-badge" class="font-headline font-bold text-[10px] text-white bg-amber-600 px-2.5 py-1 rounded-full shadow-xs">
+              Level 1 (3 Letters)
+            </div>
+            <div id="arena-step-indicator" class="font-headline font-bold text-[10px] text-[#895100] bg-amber-100 px-2.5 py-1 rounded-full border border-amber-200">
+              Word 1 of 3
+            </div>
+          </div>
+          <div class="flex items-center gap-1 bg-white px-2 py-0.5 rounded-full shadow-[0_2px_0_0_#DAC2AE] border border-[#DAC2AE]/40">
+            <span class="text-xs">⭐</span>
+            <span id="arena-score" class="font-headline font-bold text-xs text-[#895100]">350</span>
+          </div>
+        </div>
+
+        <!-- MAIN CHALLENGE CARD -->
+        <div class="bg-white rounded-3xl p-3.5 shadow-[0_5px_0_0_#DAC2AE] border border-[#DAC2AE]/50 space-y-3">
+          
+          <!-- STEP 1: QUESTION CLUE -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[10px] font-bold text-[#3A86FF] uppercase tracking-wider">Step 1 • Question Clue</span>
+              <button onclick="speakCurrentWord()" class="flex items-center gap-1 text-[11px] font-bold text-[#3A86FF] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 active:scale-95 transition">
+                <span>🔊 Hear Word</span>
+              </button>
+            </div>
+            <div id="question-text" class="text-xs font-bold text-[#1B1C17] leading-relaxed">
+              "A buzzing little insect that makes honey."
+            </div>
+          </div>
+
+          <!-- STEP 2: PICTURE CLUE -->
+          <div class="space-y-1">
+            <div class="text-[10px] font-bold text-amber-600 uppercase tracking-wider">Step 2 • Picture Clue</div>
+            <div id="picture-container" class="w-full h-36 bg-[#FBF9F1] rounded-2xl border-2 border-dashed border-[#DAC2AE] flex items-center justify-center p-2 relative overflow-hidden shadow-inner">
+              <!-- SVG Picture rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- STEP 3: WORD GUESS HINT -->
+          <div class="bg-amber-50/70 p-2 rounded-2xl border border-amber-200/80 flex items-center justify-between">
+            <div>
+              <div class="text-[9px] font-bold text-[#895100] uppercase tracking-wider">Step 3 • Guess the Word</div>
+              <div id="word-guess-hint" class="font-headline font-bold text-base text-[#895100] tracking-widest">
+                B _ E
+              </div>
+            </div>
+            <div id="word-length-badge" class="text-[10px] font-bold text-[#895100] bg-white px-2 py-1 rounded-xl shadow-xs">
+              3 Letters
+            </div>
+          </div>
+
+          <!-- STEP 4: WRITE & SPELL (KEYBOARD + LETTER BLOCKS) -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider">Step 4 • Write or Type Word</span>
+              <span class="text-[9px] text-neutral-400">Mobile keypad or tap blocks</span>
+            </div>
+
+            <!-- Direct Text Writing Input (Keyboard Support) -->
+            <div class="relative">
+              <input
+                id="spell-text-input"
+                type="text"
+                autocomplete="off"
+                autocapitalize="characters"
+                placeholder="TYPE SPELLING HERE..."
+                class="w-full bg-[#FBF9F1] border-2 border-[#FF9F1C] rounded-2xl py-2 px-3 text-center font-headline font-bold text-lg text-[#895100] placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-[#FF9F1C] uppercase tracking-widest shadow-inner"
+                oninput="handleInputTyping(this.value)"
+                onkeydown="handleInputKeyDown(event)"
+              />
+            </div>
+
+            <!-- Visual Letter Slot Boxes -->
+            <div id="answer-slots" class="flex justify-center gap-1.5 py-1">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <!-- Feedback Banner -->
+            <div id="feedback-banner" class="hidden text-center p-2 rounded-2xl font-headline font-bold text-xs transition-all"></div>
+          </div>
+
+          <!-- Letter Bank Keyboard Blocks -->
+          <div class="space-y-1.5 pt-0.5">
+            <div class="text-center text-[10px] font-bold text-neutral-400">Or Tap Letters Below:</div>
+            <div id="letter-bank" class="flex flex-wrap justify-center gap-1.5 max-w-xs mx-auto">
+              <!-- Rendered letter buttons -->
+            </div>
+          </div>
+
+          <!-- Action Controls -->
+          <div class="flex items-center gap-2 pt-1">
+            <button onclick="clearAnswer()" class="flex-1 bg-white font-headline font-bold text-xs py-2.5 rounded-2xl shadow-[0_3px_0_0_#DAC2AE] border border-[#DAC2AE]/50 text-rose-500 active:scale-95 transition">
+              Clear ⌫
+            </button>
+            <button id="check-btn" onclick="checkSpelling()" class="flex-2 w-2/3 btn-tactile-mint text-white font-headline font-bold text-sm py-2.5 rounded-2xl tracking-wide flex items-center justify-center gap-1.5">
+              <span>Check Word</span>
+              <span>✓</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= SCREEN 3: ADVENTURE MAP ================= -->
+      <div id="screen-map" class="screen-view flex-1 flex flex-col p-4 space-y-3.5 hidden">
+        <div class="flex items-center justify-between">
+          <button onclick="navigateTo('home')" class="w-8 h-8 rounded-full bg-white shadow-[0_2px_0_0_#DAC2AE] flex items-center justify-center font-bold text-sm">←</button>
+          <div class="font-headline font-bold text-sm text-[#895100]">Adventure Trail</div>
+          <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">5 Tiers</span>
+        </div>
+        <div class="space-y-2.5">
+          <div onclick="startLevel(1)" class="bg-white p-3 rounded-2xl shadow-[0_3px_0_0_#DAC2AE] border border-emerald-300 flex items-center gap-3 cursor-pointer">
+            <span class="text-2xl">🌱</span>
+            <div class="flex-1">
+              <div class="font-headline font-bold text-xs text-neutral-800">Tier 1: 3 Letters</div>
+              <div class="text-[10px] text-emerald-600 font-semibold">Bee, Sun, Cat</div>
+            </div>
+            <span class="text-emerald-500 font-bold text-xs">Play ➔</span>
+          </div>
+          <div onclick="startLevel(2)" class="bg-white p-3 rounded-2xl shadow-[0_3px_0_0_#DAC2AE] border border-amber-300 flex items-center gap-3 cursor-pointer">
+            <span class="text-2xl">👣</span>
+            <div class="flex-1">
+              <div class="font-headline font-bold text-xs text-neutral-800">Tier 2: 4 Letters</div>
+              <div class="text-[10px] text-amber-600 font-semibold">Feet, Knee, Star, Frog</div>
+            </div>
+            <span class="text-amber-500 font-bold text-xs">Play ➔</span>
+          </div>
+          <div onclick="startLevel(3)" class="bg-white p-3 rounded-2xl shadow-[0_3px_0_0_#DAC2AE] border border-orange-300 flex items-center gap-3 cursor-pointer">
+            <span class="text-2xl">🧠</span>
+            <div class="flex-1">
+              <div class="font-headline font-bold text-xs text-neutral-800">Tier 3: 5 Letters</div>
+              <div class="text-[10px] text-orange-600 font-semibold">Brain, Smile, Honey, Queen</div>
+            </div>
+            <span class="text-orange-500 font-bold text-xs">Play ➔</span>
+          </div>
+          <div onclick="startLevel(4)" class="bg-white p-3 rounded-2xl shadow-[0_3px_0_0_#DAC2AE] border border-blue-300 flex items-center gap-3 cursor-pointer">
+            <span class="text-2xl">👨‍👩‍👧</span>
+            <div class="flex-1">
+              <div class="font-headline font-bold text-xs text-neutral-800">Tier 4: 6 Letters</div>
+              <div class="text-[10px] text-blue-600 font-semibold">Family, Flower, Garden, Pencil</div>
+            </div>
+            <span class="text-blue-500 font-bold text-xs">Play ➔</span>
+          </div>
+          <div onclick="startLevel(5)" class="bg-white p-3 rounded-2xl shadow-[0_3px_0_0_#DAC2AE] border border-purple-300 flex items-center gap-3 cursor-pointer">
+            <span class="text-2xl">✨</span>
+            <div class="flex-1">
+              <div class="font-headline font-bold text-xs text-neutral-800">Tier 5: 7+ Letters</div>
+              <div class="text-[10px] text-purple-600 font-semibold">Twinkle, Butterfly, Champion</div>
+            </div>
+            <span class="text-purple-500 font-bold text-xs">Play ➔</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= SCREEN 4: TROPHY ROOM & WORD LOCKER ================= -->
+      <div id="screen-trophy" class="screen-view flex-1 flex flex-col p-4 space-y-3.5 hidden">
+        <div class="flex items-center justify-between">
+          <button onclick="navigateTo('home')" class="w-8 h-8 rounded-full bg-white shadow-[0_2px_0_0_#DAC2AE] flex items-center justify-center font-bold text-sm">←</button>
+          <div class="font-headline font-bold text-sm text-[#895100]">Trophy & Word Locker</div>
+          <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">18 Words</span>
+        </div>
+        <div class="bg-white p-4 rounded-3xl shadow-[0_4px_0_0_#DAC2AE] border border-[#DAC2AE]/40 space-y-3">
+          <div class="font-headline font-bold text-xs text-[#895100]">Mastered Vocabulary:</div>
+          <div class="flex flex-wrap gap-2" id="locker-tag-container">
+            <!-- Dynamically populated tags -->
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM APP NAVIGATION BAR -->
+      <div class="absolute bottom-0 left-0 right-0 h-14 bg-white/95 backdrop-blur border-t border-[#DAC2AE]/40 flex items-center justify-around z-30 px-2">
+        <button onclick="navigateTo('home')" class="nav-item flex flex-col items-center text-[#895100]">
+          <span class="text-base">🏠</span>
+          <span class="text-[10px] font-bold">Levels</span>
+        </button>
+        <button onclick="navigateTo('arena')" class="nav-item flex flex-col items-center text-neutral-400">
+          <span class="text-base">🐝</span>
+          <span class="text-[10px] font-bold">Quiz</span>
+        </button>
+        <button onclick="navigateTo('map')" class="nav-item flex flex-col items-center text-neutral-400">
+          <span class="text-base">🗺️</span>
+          <span class="text-[10px] font-bold">Trail</span>
+        </button>
+        <button onclick="navigateTo('trophy')" class="nav-item flex flex-col items-center text-neutral-400">
+          <span class="text-base">🏆</span>
+          <span class="text-[10px] font-bold">Locker</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Desktop 3-Button Android Nav -->
+    <div class="desktop-only w-full h-7 bg-neutral-900 flex items-center justify-around px-14 text-neutral-400 z-40">
+      <button onclick="androidBack()" class="hover:text-white transition">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+      </button>
+      <button onclick="navigateTo('home')" class="hover:text-white transition">
+        <div class="w-3 h-3 rounded-full border-2 border-current"></div>
+      </button>
+      <button onclick="alert('Junior Spelling Bee is running.')" class="hover:text-white transition">
+        <div class="w-3 h-3 border-2 border-current"></div>
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    // Live Clock
+    function updateClock() {
+      const now = new Date();
+      const hrs = String(now.getHours()).padStart(2, '0');
+      const mins = String(now.getMinutes()).padStart(2, '0');
+      const el = document.getElementById('android-clock');
+      if (el) el.innerText = `${hrs}:${mins}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // High quality vector SVG illustrations
+    const PICTURE_SVGS = {
+      BEE: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <ellipse cx="80" cy="60" rx="30" ry="24" fill="#FBBF24" />
+          <path d="M68 40 Q80 44 92 40" stroke="#1F2937" stroke-width="6" stroke-linecap="round" fill="none" />
+          <path d="M64 60 Q80 65 96 60" stroke="#1F2937" stroke-width="6" stroke-linecap="round" fill="none" />
+          <path d="M68 80 Q80 84 92 80" stroke="#1F2937" stroke-width="5" stroke-linecap="round" fill="none" />
+          <circle cx="95" cy="52" r="3.5" fill="#1F2937" />
+          <ellipse cx="65" cy="35" rx="16" ry="10" fill="#BAE6FD" opacity="0.8" transform="rotate(-25 65 35)" />
+          <ellipse cx="85" cy="32" rx="16" ry="10" fill="#BAE6FD" opacity="0.8" transform="rotate(25 85 32)" />
+        </svg>
+      `,
+      SUN: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <circle cx="80" cy="60" r="26" fill="#F59E0B" />
+          <circle cx="80" cy="60" r="23" fill="#FBBF24" />
+          <g stroke="#F59E0B" stroke-width="4" stroke-linecap="round">
+            <line x1="80" y1="20" x2="80" y2="28" />
+            <line x1="80" y1="92" x2="80" y2="100" />
+            <line x1="40" y1="60" x2="48" y2="60" />
+            <line x1="112" y1="60" x2="120" y2="60" />
+            <line x1="52" y1="32" x2="58" y2="38" />
+            <line x1="102" y1="82" x2="108" y2="88" />
+            <line x1="52" y1="88" x2="58" y2="82" />
+            <line x1="102" y1="38" x2="108" y2="32" />
+          </g>
+          <circle cx="73" cy="56" r="2.5" fill="#78350F" />
+          <circle cx="87" cy="56" r="2.5" fill="#78350F" />
+          <path d="M74 65 Q80 70 86 65" stroke="#78350F" stroke-width="2" fill="none" stroke-linecap="round" />
+        </svg>
+      `,
+      CAT: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <circle cx="80" cy="62" r="24" fill="#FB923C" />
+          <polygon points="62,45 68,26 78,40" fill="#F97316" />
+          <polygon points="98,45 92,26 82,40" fill="#F97316" />
+          <circle cx="72" cy="58" r="3" fill="#1F2937" />
+          <circle cx="88" cy="58" r="3" fill="#1F2937" />
+          <polygon points="80,64 77,61 83,61" fill="#DC2626" />
+          <path d="M74 68 Q80 72 86 68" stroke="#1F2937" stroke-width="2" fill="none" />
+          <line x1="55" y1="62" x2="68" y2="64" stroke="#1F2937" stroke-width="1.5" />
+          <line x1="55" y1="68" x2="68" y2="68" stroke="#1F2937" stroke-width="1.5" />
+          <line x1="105" y1="62" x2="92" y2="64" stroke="#1F2937" stroke-width="1.5" />
+          <line x1="105" y1="68" x2="92" y2="68" stroke="#1F2937" stroke-width="1.5" />
+        </svg>
+      `,
+      FEET: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <!-- Left Foot -->
+          <ellipse cx="62" cy="65" rx="14" ry="24" fill="#3B82F6" transform="rotate(-10 62 65)" />
+          <circle cx="56" cy="40" r="5" fill="#3B82F6" />
+          <circle cx="64" cy="41" r="4" fill="#3B82F6" />
+          <circle cx="71" cy="44" r="3.5" fill="#3B82F6" />
+          <circle cx="77" cy="48" r="3" fill="#3B82F6" />
+          <!-- Right Foot -->
+          <ellipse cx="98" cy="65" rx="14" ry="24" fill="#3B82F6" transform="rotate(10 98 65)" />
+          <circle cx="104" cy="40" r="5" fill="#3B82F6" />
+          <circle cx="96" cy="41" r="4" fill="#3B82F6" />
+          <circle cx="89" cy="44" r="3.5" fill="#3B82F6" />
+          <circle cx="83" cy="48" r="3" fill="#3B82F6" />
+        </svg>
+      `,
+      KNEE: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <!-- Bending leg with highlighted knee joint -->
+          <path d="M50 30 L80 60 L65 95" stroke="#FDBA74" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+          <circle cx="80" cy="60" r="14" fill="#EA580C" opacity="0.8" />
+          <circle cx="80" cy="60" r="8" fill="#FBBF24" />
+          <!-- Little band-aid icon -->
+          <rect x="74" y="55" width="12" height="10" rx="3" fill="#FED7AA" stroke="#C2410C" stroke-width="1.5" />
+        </svg>
+      `,
+      STAR: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <polygon points="80,20 89,45 116,45 94,62 102,88 80,72 58,88 66,62 44,45 71,45" fill="#FBBF24" stroke="#D97706" stroke-width="2" />
+          <circle cx="73" cy="52" r="2.5" fill="#78350F" />
+          <circle cx="87" cy="52" r="2.5" fill="#78350F" />
+          <path d="M75 59 Q80 63 85 59" stroke="#78350F" stroke-width="2" fill="none" />
+        </svg>
+      `,
+      FROG: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <!-- Lily Pad -->
+          <ellipse cx="80" cy="85" rx="45" ry="15" fill="#059669" />
+          <!-- Frog Body -->
+          <ellipse cx="80" cy="60" rx="26" ry="20" fill="#10B981" />
+          <ellipse cx="64" cy="42" rx="10" ry="10" fill="#10B981" />
+          <circle cx="64" cy="42" r="5" fill="#FFFFFF" />
+          <circle cx="64" cy="42" r="3" fill="#1F2937" />
+          <ellipse cx="96" cy="42" rx="10" ry="10" fill="#10B981" />
+          <circle cx="96" cy="42" r="5" fill="#FFFFFF" />
+          <circle cx="96" cy="42" r="3" fill="#1F2937" />
+          <path d="M70 66 Q80 72 90 66" stroke="#064E3B" stroke-width="2.5" fill="none" />
+        </svg>
+      `,
+      BRAIN: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <g fill="#F472B6" stroke="#BE185D" stroke-width="2">
+            <!-- Left Lobe -->
+            <path d="M78 40 C60 30 45 45 50 60 C40 70 50 85 62 85 C68 90 78 85 78 75 Z" />
+            <!-- Right Lobe -->
+            <path d="M82 40 C100 30 115 45 110 60 C120 70 110 85 98 85 C92 90 82 85 82 75 Z" />
+          </g>
+          <!-- Thinking light bulb above -->
+          <circle cx="80" cy="22" r="9" fill="#FBBF24" />
+          <rect x="77" y="30" width="6" height="4" fill="#9CA3AF" />
+          <path d="M70 14 L65 8" stroke="#F59E0B" stroke-width="2" />
+          <path d="M90 14 L95 8" stroke="#F59E0B" stroke-width="2" />
+        </svg>
+      `,
+      SMILE: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <circle cx="80" cy="60" r="30" fill="#FBBF24" stroke="#D97706" stroke-width="3" />
+          <circle cx="68" cy="52" r="3.5" fill="#1F2937" />
+          <circle cx="92" cy="52" r="3.5" fill="#1F2937" />
+          <!-- Big cheerful smile -->
+          <path d="M64 65 Q80 84 96 65" fill="#DC2626" stroke="#991B1B" stroke-width="2" />
+          <!-- White teeth bar -->
+          <rect x="70" y="65" width="20" height="4" rx="1" fill="#FFFFFF" />
+        </svg>
+      `,
+      HONEY: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <ellipse cx="80" cy="30" rx="35" ry="8" fill="#D97706" />
+          <path d="M45 30 Q40 85 80 92 Q120 85 115 30 Z" fill="#F59E0B" />
+          <ellipse cx="80" cy="28" rx="36" ry="7" fill="#B45309" />
+          <ellipse cx="80" cy="27" rx="33" ry="5.5" fill="#FDE68A" />
+          <path d="M70 28 Q75 55 80 55 Q85 55 90 28 Z" fill="#F59E0B" />
+          <rect x="62" y="60" width="36" height="18" rx="4" fill="#FFFFFF" />
+          <text x="80" y="73" font-family="Quicksand, sans-serif" font-weight="bold" font-size="10" fill="#B45309" text-anchor="middle">HONEY</text>
+        </svg>
+      `,
+      QUEEN: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <ellipse cx="80" cy="65" rx="26" ry="34" fill="#F59E0B" />
+          <path d="M57 55 Q80 62 103 55" stroke="#1F2937" stroke-width="6" stroke-linecap="round" fill="none" />
+          <circle cx="80" cy="36" r="16" fill="#FBBF24" />
+          <polygon points="66,22 72,12 80,18 88,12 94,22" fill="#FBBF24" stroke="#D97706" stroke-width="2" />
+        </svg>
+      `,
+      FAMILY: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <!-- Dad -->
+          <circle cx="50" cy="40" r="12" fill="#FBBF24" />
+          <path d="M38 56 Q50 52 62 56 L60 90 L40 90 Z" fill="#3B82F6" />
+          <!-- Mom -->
+          <circle cx="110" cy="40" r="12" fill="#FBBF24" />
+          <path d="M98 56 Q110 52 122 56 L120 90 L100 90 Z" fill="#EC4899" />
+          <!-- Child in middle holding hands -->
+          <circle cx="80" cy="54" r="9" fill="#FDE047" />
+          <path d="M72 66 Q80 64 88 66 L86 92 L74 92 Z" fill="#10B981" />
+          <!-- Connecting hands -->
+          <line x1="58" y1="65" x2="72" y2="70" stroke="#FBBF24" stroke-width="3" />
+          <line x1="88" y1="70" x2="102" y2="65" stroke="#FBBF24" stroke-width="3" />
+        </svg>
+      `,
+      FLOWER: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <path d="M80 60 Q85 90 80 110" stroke="#10B981" stroke-width="6" fill="none" />
+          <circle cx="80" cy="36" r="14" fill="#FBBF24" />
+          <circle cx="80" cy="68" r="14" fill="#FBBF24" />
+          <circle cx="64" cy="52" r="14" fill="#FBBF24" />
+          <circle cx="96" cy="52" r="14" fill="#FBBF24" />
+          <circle cx="80" cy="52" r="15" fill="#78350F" />
+        </svg>
+      `,
+      GARDEN: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <!-- Grass hill -->
+          <path d="M20 95 Q80 75 140 95 L140 110 L20 110 Z" fill="#10B981" />
+          <!-- White garden picket fence -->
+          <rect x="40" y="65" width="8" height="30" fill="#FFFFFF" stroke="#D1D5DB" />
+          <rect x="60" y="65" width="8" height="30" fill="#FFFFFF" stroke="#D1D5DB" />
+          <rect x="80" y="65" width="8" height="30" fill="#FFFFFF" stroke="#D1D5DB" />
+          <rect x="100" y="65" width="8" height="30" fill="#FFFFFF" stroke="#D1D5DB" />
+          <rect x="35" y="72" width="78" height="5" fill="#FFFFFF" stroke="#D1D5DB" />
+          <rect x="35" y="84" width="78" height="5" fill="#FFFFFF" stroke="#D1D5DB" />
+          <!-- Flowers -->
+          <circle cx="50" cy="62" r="6" fill="#F43F5E" />
+          <circle cx="90" cy="60" r="6" fill="#FBBF24" />
+        </svg>
+      `,
+      PENCIL: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <g transform="rotate(35 80 60)">
+            <rect x="40" y="52" width="70" height="16" fill="#FBBF24" />
+            <polygon points="110,52 130,60 110,68" fill="#FDE68A" />
+            <polygon points="122,57 130,60 122,63" fill="#1F2937" />
+            <rect x="28" y="52" width="12" height="16" rx="2" fill="#F43F5E" />
+            <rect x="38" y="52" width="4" height="16" fill="#9CA3AF" />
+          </g>
+        </svg>
+      `,
+      TWINKLE: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <!-- Big sparkle -->
+          <path d="M80 20 Q80 60 40 60 Q80 60 80 100 Q80 60 120 60 Q80 60 80 20 Z" fill="#FBBF24" />
+          <circle cx="80" cy="60" r="6" fill="#FFFFFF" />
+          <!-- Small sparkles around -->
+          <path d="M45 35 Q45 45 35 45 Q45 45 45 55 Q45 45 55 45 Q45 45 45 35 Z" fill="#60A5FA" />
+          <path d="M115 75 Q115 85 105 85 Q115 85 115 95 Q115 85 125 85 Q115 85 115 75 Z" fill="#EC4899" />
+        </svg>
+      `,
+      BUTTERFLY: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <ellipse cx="55" cy="45" rx="26" ry="22" fill="#F43F5E" transform="rotate(-20 55 45)" />
+          <ellipse cx="105" cy="45" rx="26" ry="22" fill="#F43F5E" transform="rotate(20 105 45)" />
+          <ellipse cx="80" cy="60" rx="5" ry="26" fill="#1E293B" />
+        </svg>
+      `,
+      CHAMPION: `
+        <svg viewBox="0 0 160 120" class="w-full h-full max-h-32">
+          <rect x="60" y="90" width="40" height="10" rx="2" fill="#78350F" />
+          <path d="M54 28 Q54 66 80 66 Q106 66 106 28 Z" fill="#FBBF24" stroke="#D97706" stroke-width="2" />
+          <text x="80" y="52" font-size="16" text-anchor="middle">⭐</text>
+        </svg>
+      `
+    };
+
+    // LEVEL-BASED WORDS DATASET
+    const LEVELS_DATA = {
+      1: {
+        title: "Level 1: 3-Letter Words",
+        badge: "3 Letters",
+        words: [
+          {
+            word: "BEE",
+            question: "A buzzing little insect that makes sweet honey in the hive.",
+            hint: "B _ E",
+            scrambled: ["B", "E", "E", "T", "O", "S"]
+          },
+          {
+            word: "SUN",
+            question: "The bright warm yellow star in the sky that lights our day.",
+            hint: "S _ N",
+            scrambled: ["S", "U", "N", "M", "P", "A"]
+          },
+          {
+            word: "CAT",
+            question: "A playful furry pet that purrs and says meow.",
+            hint: "C _ T",
+            scrambled: ["C", "A", "T", "O", "G", "R"]
+          }
+        ]
+      },
+      2: {
+        title: "Level 2: 4-Letter Daily Words",
+        badge: "4 Letters",
+        words: [
+          {
+            word: "FEET",
+            question: "The parts at the end of your legs that you stand, walk, and run on.",
+            hint: "F _ _ T",
+            scrambled: ["F", "E", "E", "T", "O", "P", "S"]
+          },
+          {
+            word: "KNEE",
+            question: "The middle joint in your leg that bends when you jump or sit down.",
+            hint: "K _ _ E",
+            scrambled: ["K", "N", "E", "E", "L", "R", "B"]
+          },
+          {
+            word: "STAR",
+            question: "A bright glowing point in the night sky that twinkles and shines.",
+            hint: "S _ _ R",
+            scrambled: ["S", "T", "A", "R", "O", "M", "E"]
+          },
+          {
+            word: "FROG",
+            question: "A cheerful green amphibian that hops on lily pads and catches flies.",
+            hint: "F _ _ G",
+            scrambled: ["F", "R", "O", "G", "L", "K", "T"]
+          }
+        ]
+      },
+      3: {
+        title: "Level 3: 5-Letter Smart Words",
+        badge: "5 Letters",
+        words: [
+          {
+            word: "BRAIN",
+            question: "The super-smart thinking organ inside your head that learns and remembers!",
+            hint: "B _ _ _ N",
+            scrambled: ["B", "R", "A", "I", "N", "O", "S", "T"]
+          },
+          {
+            word: "SMILE",
+            question: "A happy, joyful expression on your face when you feel cheerful and laugh!",
+            hint: "S _ _ _ E",
+            scrambled: ["S", "M", "I", "L", "E", "A", "T", "P"]
+          },
+          {
+            word: "HONEY",
+            question: "What sweet, golden syrup do bees produce from flower nectar?",
+            hint: "H _ _ _ Y",
+            scrambled: ["H", "O", "N", "E", "Y", "P", "B", "T"]
+          },
+          {
+            word: "QUEEN",
+            question: "Who is the ruler bee of the colony who wears a tiny golden crown?",
+            hint: "Q _ _ _ N",
+            scrambled: ["Q", "U", "E", "E", "N", "K", "L", "S"]
+          }
+        ]
+      },
+      4: {
+        title: "Level 4: 6-Letter Daily & Nature Words",
+        badge: "6 Letters",
+        words: [
+          {
+            word: "FAMILY",
+            question: "The people who love you most: parents, brothers, and sisters at home.",
+            hint: "F _ _ _ _ Y",
+            scrambled: ["F", "A", "M", "I", "L", "Y", "E", "R", "O"]
+          },
+          {
+            word: "FLOWER",
+            question: "What bright and colorful plant part attracts bees with nectar and petals?",
+            hint: "F _ _ _ _ R",
+            scrambled: ["F", "L", "O", "W", "E", "R", "D", "M", "S"]
+          },
+          {
+            word: "GARDEN",
+            question: "A lovely green place outdoors where vegetables, trees, and flowers grow.",
+            hint: "G _ _ _ _ N",
+            scrambled: ["G", "A", "R", "D", "E", "N", "P", "L", "T"]
+          },
+          {
+            word: "PENCIL",
+            question: "A wooden tool with graphite lead used by students to write and draw neatly.",
+            hint: "P _ _ _ _ L",
+            scrambled: ["P", "E", "N", "C", "I", "L", "A", "O", "R"]
+          }
+        ]
+      },
+      5: {
+        title: "Level 5: 7+ Letter Bee Champions",
+        badge: "7+ Letters",
+        words: [
+          {
+            word: "TWINKLE",
+            question: "To shine with a flickering, sparkling bright light, just like the little star!",
+            hint: "T _ _ _ _ _ E",
+            scrambled: ["T", "W", "I", "N", "K", "L", "E", "S", "A", "R"]
+          },
+          {
+            word: "BUTTERFLY",
+            question: "What colorful winged insect starts its life as a little caterpillar?",
+            hint: "B _ _ _ _ _ _ _ Y",
+            scrambled: ["B", "U", "T", "T", "E", "R", "F", "L", "Y", "A", "O"]
+          },
+          {
+            word: "CHAMPION",
+            question: "What do we call the winning student who spells every word correctly?",
+            hint: "C _ _ _ _ _ _ N",
+            scrambled: ["C", "H", "A", "M", "P", "I", "O", "N", "S", "T"]
+          }
+        ]
+      }
+    };
+
+    let currentLevel = 1;
+    let currentQIndex = 0;
+    let typedWord = "";
+    let score = 350;
+    let navHistory = ['home'];
+
+    function startLevel(lvl) {
+      currentLevel = lvl;
+      currentQIndex = 0;
+      navigateTo('arena');
+    }
+
+    function loadQuestion(index) {
+      currentQIndex = index;
+      typedWord = "";
+      const lvlData = LEVELS_DATA[currentLevel];
+      const q = lvlData.words[index];
+
+      // Step indicators
+      document.getElementById('level-badge').innerText = `Level ${currentLevel} (${lvlData.badge})`;
+      document.getElementById('arena-step-indicator').innerText = `Word ${index + 1} of ${lvlData.words.length}`;
+      document.getElementById('question-text').innerText = `"${q.question}"`;
+      document.getElementById('word-guess-hint').innerText = q.hint;
+      document.getElementById('word-length-badge').innerText = `${q.word.length} Letters`;
+
+      // Render Picture
+      const picContainer = document.getElementById('picture-container');
+      picContainer.innerHTML = PICTURE_SVGS[q.word] || `<div class="text-3xl font-bold">⭐ ${q.word}</div>`;
+
+      // Reset text input
+      const inputEl = document.getElementById('spell-text-input');
+      inputEl.value = "";
+      inputEl.maxLength = q.word.length;
+
+      // Render slots
+      renderAnswerSlots();
+
+      // Render letter bank
+      const bank = document.getElementById('letter-bank');
+      bank.innerHTML = '';
+      q.scrambled.forEach((char, idx) => {
+        const btn = document.createElement('button');
+        btn.id = `btn-tile-${idx}`;
+        btn.className = 'w-9 h-9 rounded-xl btn-letter font-headline font-bold text-sm text-[#1B1C17] border border-[#DAC2AE]/50 flex items-center justify-center';
+        btn.innerText = char;
+        btn.onclick = () => selectLetter(char);
+        bank.appendChild(btn);
+      });
+
+      // Clear feedback banner
+      const banner = document.getElementById('feedback-banner');
+      banner.className = 'hidden';
+      banner.innerText = '';
+    }
+
+    function getCurrentQuestion() {
+      return LEVELS_DATA[currentLevel].words[currentQIndex];
+    }
+
+    function renderAnswerSlots() {
+      const container = document.getElementById('answer-slots');
+      container.innerHTML = '';
+      const q = getCurrentQuestion();
+
+      for (let i = 0; i < q.word.length; i++) {
+        const slot = document.createElement('div');
+        const letter = typedWord[i];
+
+        if (letter) {
+          slot.className = 'w-8 h-9 rounded-xl bg-white border-2 border-[#FF9F1C] font-headline font-bold text-base text-[#895100] flex items-center justify-center shadow-xs';
+          slot.innerText = letter;
+        } else {
+          slot.className = 'w-8 h-9 rounded-xl bg-[#F0EEE6] border-2 border-dashed border-[#DAC2AE] flex items-center justify-center';
+          slot.innerText = '';
+        }
+        container.appendChild(slot);
+      }
+    }
+
+    function selectLetter(char) {
+      const q = getCurrentQuestion();
+      if (typedWord.length >= q.word.length) return;
+
+      typedWord += char;
+      const inputEl = document.getElementById('spell-text-input');
+      inputEl.value = typedWord;
+      renderAnswerSlots();
+    }
+
+    function handleInputTyping(val) {
+      const q = getCurrentQuestion();
+      typedWord = val.toUpperCase().replace(/[^A-Z]/g, '').slice(0, q.word.length);
+      document.getElementById('spell-text-input').value = typedWord;
+      renderAnswerSlots();
+    }
+
+    function handleInputKeyDown(e) {
+      if (e.key === 'Enter') {
+        checkSpelling();
+      }
+    }
+
+    function clearAnswer() {
+      typedWord = "";
+      document.getElementById('spell-text-input').value = "";
+      renderAnswerSlots();
+      const banner = document.getElementById('feedback-banner');
+      banner.className = 'hidden';
+    }
+
+    function checkSpelling() {
+      const q = getCurrentQuestion();
+      const target = q.word;
+      const attempt = typedWord.trim().toUpperCase();
+      const banner = document.getElementById('feedback-banner');
+
+      if (!attempt) {
+        banner.className = 'block p-2 rounded-2xl bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold';
+        banner.innerText = '⚠️ Write or tap letters to spell the word!';
+        return;
+      }
+
+      if (attempt === target) {
+        score += 50;
+        document.getElementById('arena-score').innerText = score;
+        document.getElementById('home-stars').innerText = score;
+        banner.className = 'block p-2.5 rounded-2xl bg-emerald-100 text-emerald-900 border border-emerald-300 font-headline font-bold text-xs animate-bounce';
+        banner.innerHTML = `🎉 Correct! <strong>${target}</strong> (+50 Stars!)`;
+
+        speakWordWithFeedback(target);
+
+        setTimeout(() => {
+          const wordsList = LEVELS_DATA[currentLevel].words;
+          if (currentQIndex < wordsList.length - 1) {
+            loadQuestion(currentQIndex + 1);
+          } else {
+            if (currentLevel < 5) {
+              alert(`🏆 Fantastic! You completed Level ${currentLevel}! Unlocking Level ${currentLevel + 1}!`);
+              startLevel(currentLevel + 1);
+            } else {
+              alert('👑 Grand Champion! You completed all levels from 3-letter to 7-letter words with 100% accuracy!');
+              navigateTo('trophy');
+            }
+          }
+        }, 1600);
+      } else {
+        banner.className = 'block p-2 rounded-2xl bg-rose-100 text-rose-900 border border-rose-300 font-headline font-bold text-xs';
+        banner.innerHTML = `❌ Almost! Look at the picture clue: ${q.hint}`;
+      }
+    }
+
+    function speakCurrentWord() {
+      const word = getCurrentQuestion().word;
+      speakWordWithFeedback(word);
+    }
+
+    function speakWordWithFeedback(word) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utter = new SpeechSynthesisUtterance(word);
+        utter.rate = 0.8;
+        utter.pitch = 1.15;
+        window.speechSynthesis.speak(utter);
+      }
+    }
+
+    function navigateTo(screenId) {
+      const screens = document.querySelectorAll('.screen-view');
+      screens.forEach(s => s.classList.add('hidden'));
+
+      const target = document.getElementById(`screen-${screenId}`);
+      if (target) {
+        target.classList.remove('hidden');
+        navHistory.push(screenId);
+      }
+
+      if (screenId === 'arena') {
+        loadQuestion(currentQIndex);
+      } else if (screenId === 'trophy') {
+        populateLocker();
+      }
+    }
+
+    function populateLocker() {
+      const container = document.getElementById('locker-tag-container');
+      container.innerHTML = '';
+      for (const lvl in LEVELS_DATA) {
+        LEVELS_DATA[lvl].words.forEach(item => {
+          const span = document.createElement('span');
+          span.className = 'px-2.5 py-1 bg-emerald-50 text-emerald-800 text-[11px] font-bold rounded-xl border border-emerald-200';
+          span.innerText = `${item.word} ✓`;
+          container.appendChild(span);
+        });
+      }
+    }
+
+    function androidBack() {
+      if (navHistory.length > 1) {
+        navHistory.pop();
+        const prev = navHistory[navHistory.length - 1];
+        const screens = document.querySelectorAll('.screen-view');
+        screens.forEach(s => s.classList.add('hidden'));
+        const target = document.getElementById(`screen-${prev}`);
+        if (target) target.classList.remove('hidden');
+      } else {
+        navigateTo('home');
+      }
+    }
+
+    // Initialize
+    loadQuestion(0);
+    populateLocker();
+  </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+﻿{
+  "expo": {
+    "name": "Spelling Champ",
+    "slug": "spelling-champ",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#FBF9F1"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.spellingchamp.app"
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}

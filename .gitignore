@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Expo & React Native
+.expo/
+web-build/
+dist/
+
+# Vercel
+.vercel/
+
+# Stitch & Gemini IDE artifacts
+.stitch/
+
+# Environment variables
+.env
+.env*.local
+
+# System files
+.DS_Store
+Thumbs.db
